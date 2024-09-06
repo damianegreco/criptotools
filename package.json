@@ -1,0 +1,24 @@
+{
+  "name": "criptotools",
+  "version": "1.0.0",
+  "description": "Herramientas CLI para el cifrado y backup",
+  "main": "main.js",
+  "scripts": {
+    "inicializar": "node ./scripts/inicializar.js",
+    "generarpar": "node ./scripts/generarPar.js",
+    "backup": "node ./scripts/backup.js",
+    "restore": "node ./scripts/restore.js",
+    "asistente-cifrado": "node ./scripts/asistente-cifrado.js",
+    "asistente-backup": "node ./scripts/asistente-backup.js"
+  },
+  "author": "Damian Greco",
+  "license": "ISC",
+  "dependencies": {
+    "archiver": "^7.0.1",
+    "cli-progress": "^3.12.0",
+    "dotenv": "^16.4.5",
+    "inquirer": "^10.1.8",
+    "morgan": "^1.10.0",
+    "rotating-file-stream": "^3.2.3"
+  }
+}

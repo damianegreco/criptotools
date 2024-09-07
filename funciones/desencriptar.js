@@ -7,13 +7,10 @@ const { checkFile } = require('./funciones');
 const desencriptar = function(privateKeyDir, dumpDir, encriptadoDir, encriptadoFilename){
   return new Promise((resolve, reject) => {
     try {
-      console.log(encriptadoFilename);
       
       let desencriptadoFilename = encriptadoFilename.split(".");
       desencriptadoFilename.pop();
       desencriptadoFilename = desencriptadoFilename.join(".");
-      console.log(desencriptadoFilename);
-      
       // Obtiene clave privada
       const privateKeyRuta = path.join(privateKeyDir, ".privateKey");
       if (!checkFile(privateKeyRuta)) return reject("No existe clave privada");

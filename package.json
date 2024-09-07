@@ -1,6 +1,6 @@
 {
-  "name": "criptotools",
-  "version": "1.0.0",
+  "name": "@damianegreco/criptotools",
+  "version": "1.0.1",
   "description": "Herramientas CLI para el cifrado y backup",
   "main": "main.js",
   "scripts": {

@@ -11,7 +11,7 @@ const { generarParClaves, comprimir, encriptar, desencriptar } = require('../fun
 
 const consultaGenerarPar = async function(){
   try {
-    const dirPublica = await input({ message: 'Directorio donde guardar clave pública: ', default: './dumps' });
+    const dirPublica = await input({ message: 'Directorio donde guardar clave pública: ', default: '../dumps' });
     const dirPrivada = await input({ message: 'Directorio donde guardar clave pública: ', default: '~/' });
     
     generarParClaves(dirPublica, dirPrivada)
@@ -61,7 +61,7 @@ const consultaCifrarDir = async function(){
     const directorio = await input({ message: 'Ruta del directorio a encriptar: ' });
     const nombreDirectorio = directorio.split(path.sep).pop();
     
-    const dumpDir = path.join(__dirname, 'dumps')
+    const dumpDir = path.join(__dirname, '..', 'dumps')
     const publicKeyFile = await input({ message: 'Ruta de clave pública: ', default: path.join(dumpDir,'publicKey.pub') });
     
     let destinoDir = await input({ message: 'Destino de archivo cifrado: ', default: backupJSON.directorio_destino });
@@ -102,6 +102,7 @@ const consultaComprimir = async function(){
 
     comprimir(destinoDir, directorio, nombreDirectorio)
     .then((comprimido) => {
+      cronometro = (new Date() - cronometro)
       console.log(`Se finalizó archivo: ${comprimido} en ${cronometro} ms`);
     })
     .catch((error) => {
@@ -120,7 +121,7 @@ const consultaDescifrar = async function(){
 
     const file = await input({ message: 'Nombre del archivo a desencriptar: ' });
 
-    const destinoDirDefault = path.join(__dirname, 'dumps')
+    const destinoDirDefault = path.join(__dirname, '..', 'dumps')
     let destinoDir = await input({ message: 'Destino de descifrado: ', default: destinoDirDefault });
     
     const privateKeyFile = await input({ message: 'Ruta de clave privada: ', default: '~/' });    

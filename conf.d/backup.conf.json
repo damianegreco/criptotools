@@ -1,5 +1,7 @@
 {
   "directorio_destino":"",
   "dbs":[],
-  "archivos":[]
+  "archivos":[
+    {"nombre":"", "ruta":""}
+  ]
 }

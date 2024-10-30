@@ -3,8 +3,12 @@ const fs = require("fs");
 const { execSync } = require('child_process');
 const { checkFile, getFechaHoy, obtenerComandoDump, obtenerDatosConf } = require('./funciones');
 const { comprimir, encriptar } = require('./encriptar');
+const { enviarMail } = require('../funciones/mail');
+
 
 let backupJSON = obtenerDatosConf('backup.conf.json');
+let mailJSON = obtenerDatosConf('mail.conf.json');
+
 //dumpear
 const dumpear = function(dumpDir, envConfig, dbs){
   return new Promise((resolve, reject) => {
@@ -149,6 +153,11 @@ const realizarDump = async function(dumpDir, publicKeyFile, envConfig){
           await ordenarBackups(envConfig.DUMP_DIR);
     
           cronometro = (new Date() - cronometro)
+          
+          if (mailJSON.enviar){
+            enviarMail(backupJSON.dbs, backupJSON.archivos, nombreArchivoEnc)
+          }
+
           resolve({nombreArchivoEnc, cronometro});
         })
         .catch((error) => reject(error))

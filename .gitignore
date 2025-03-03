@@ -3,5 +3,7 @@ dumps/*
 !dumps/README.md
 .privateKey
 
+externos/*
+
 conf/*.json
 logs/*.log

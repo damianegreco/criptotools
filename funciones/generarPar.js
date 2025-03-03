@@ -22,17 +22,17 @@ const abortar = function(rutas = []){
   }
 }
 
-const generarPar = function(dumpDir, ruta){
+const generarPar = function(dumpDir, ruta, nombre = ""){
   return new Promise((resolve, reject) => {
-    generateKeyPair('rsa', {
-      modulusLength: 1024*2,
+    generateKeyPair('ec', {
+      namedCurve: 'prime256v1',
       publicKeyEncoding: { type: 'spki', format: 'pem' },
       privateKeyEncoding: { type: 'pkcs8', format: 'pem' }
     }, async (error, publicKey, privateKey) => {
       if (error) return reject(error);
       if (!fs.existsSync(dumpDir)) fs.mkdirSync(dumpDir);
-      const publicFile = path.join(dumpDir, "publicKey.pub");
-      const privateFile = path.join(ruta, ".privateKey");
+      const publicFile = path.join(dumpDir, `${nombre}publicKey.pub`);
+      const privateFile = path.join(ruta, `${nombre}.privateKey`);
       try {
         await checkPermisos([publicFile, privateFile])
         // guardar publico
@@ -55,11 +55,11 @@ const generarPar = function(dumpDir, ruta){
   })
 }
 
-const generarParClaves = function(dumpDir, rutaClavePrivada){
+const generarParClaves = function(dumpDir, rutaClavePrivada, nombre = ""){
   return new Promise((resolve, reject) => {
     //Debe haber ingresado si o si ruta para clave privada
     if (checkArgs([rutaClavePrivada])) {
-      generarPar(dumpDir, rutaClavePrivada)
+      generarPar(dumpDir, rutaClavePrivada, nombre)
       .then(() => resolve())
       .catch((error) => reject(error))
     } else {

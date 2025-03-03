@@ -3,25 +3,35 @@
   "version": "1.1.0",
   "description": "Herramientas CLI para el cifrado y backup",
   "main": "main.js",
+  "api_port": 3000,
   "scripts": {
     "inicializar": "node ./scripts/inicializar.js",
-    "generarpar": "node ./scripts/generarPar.js",
-    "generarparexterno": "node ./scripts/generarParExterno.js",
+    "generar-par": "node ./scripts/generarPar.js",
+    "generar-par-externo": "node ./scripts/generarParExterno.js",
     "backup": "node ./scripts/backup.js",
     "restore": "node ./scripts/restore.js",
     "asistente-cifrado": "node ./scripts/asistente-cifrado.js",
     "asistente-backup": "node ./scripts/asistente-backup.js",
-    "test-mail": "node ./scripts/test-mail.js"
+    "test-mail": "node ./scripts/test-mail.js",
+    "servidor-api": "node ./api/app.js",
+    "servidor-api-dev": "nodemon ./api/app.js"
   },
   "author": "Damian Greco",
   "license": "ISC",
   "dependencies": {
     "archiver": "^7.0.1",
     "cli-progress": "^3.12.0",
+    "cors": "^2.8.5",
     "dotenv": "^16.4.7",
+    "express": "^4.21.2",
+    "helmet": "^8.0.0",
     "inquirer": "^12.4.2",
+    "jsonwebtoken": "^9.0.2",
     "morgan": "^1.10.0",
     "nodemailer": "^6.10.0",
     "rotating-file-stream": "^3.2.6"
+  },
+  "devDependencies": {
+    "nodemon": "^3.1.9"
   }
 }

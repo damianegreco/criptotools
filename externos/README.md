@@ -1,0 +1,2 @@
+Directorio donde se almacenan los pares de claves externos, para uso de la api.
+Debe eliminarse la clave privada una vez exportada al cliente, las claves publicas deben quedar para validar la firma de los jwt.

@@ -1,4 +1,4 @@
-var path = require('path');
+const path = require('path');
 const { obtenerDatosConf } = require('../funciones/funciones');
 const { realizarDump } = require('../funciones/backup');
 

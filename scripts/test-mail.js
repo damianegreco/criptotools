@@ -1,6 +1,5 @@
 const { enviarMail } = require('../funciones/mail');
 
-
 const TEST_dbs = ['a','b','c']
 const TEST_archivos = [
   {"nombre":"deposito", "ruta":"/var/www/servicios/SV-depositos/archivos_depositos"},

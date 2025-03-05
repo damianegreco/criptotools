@@ -14,11 +14,13 @@
     "asistente-backup": "node ./scripts/asistente-backup.js",
     "test-mail": "node ./scripts/test-mail.js",
     "servidor-api": "node ./api/app.js",
-    "servidor-api-dev": "nodemon ./api/app.js"
+    "servidor-api-dev": "nodemon ./api/app.js",
+    "generar-link": "node ./scripts/generar-link.js"
   },
   "author": "Damian Greco",
   "license": "ISC",
   "dependencies": {
+    "@seald-io/nedb": "^4.0.4",
     "archiver": "^7.0.1",
     "cli-progress": "^3.12.0",
     "cors": "^2.8.5",

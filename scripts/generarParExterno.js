@@ -1,4 +1,4 @@
-var path = require('path');
+const path = require('path');
 const { generarParClaves } = require('../funciones/generarPar');
 
 const externosDir = path.join(__dirname, "..", "externos");

@@ -5,9 +5,7 @@ const externosDir = path.join(__dirname, "..", "externos");
 
 /*
   Comando:
-    npm run generarpar [RUTA_CLAVE_PRIVADA]
-    Ej:
-      npm run generarparexterno
+    npm run generar-par-externo
 */
 
 function formatDate(date) {
@@ -31,12 +29,11 @@ function formatDate(date) {
 
 const nombre = formatDate(new Date())
 
-generarParClaves(externosDir, externosDir, nombre)
+generarParClaves(externosDir, externosDir, nombre, true)
 .then(() => {
   console.log("Par de claves creado");
 })
 .catch((error) => {
-  if (error === 'RUTA_CLAVE_PRIVADA') 
-    return console.error("No ingresó ruta para clave privada \nnpm run generarpar [RUTA_CLAVE_PRIVADA]");
   console.error(error);
+  process.exit(1);
 })

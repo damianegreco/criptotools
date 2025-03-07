@@ -1,7 +1,7 @@
 const router = require('express').Router();
 const { middleware } = require('./middleware');
 
-const { directorio_destino } = require('../conf/backup.json');
+const { directorio_destino } = require('../conf/backup.conf.json');
 const {getElementos, obtenerBackup} = require('./funciones');
 
 /* Controla que todos los recursos deben benir con JWT firmado por una clave reconocida */

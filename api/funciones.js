@@ -33,7 +33,7 @@ function getElementos(directorio_destino){
 }
 
 /* Obtiene el nombre del ultimo elemento ordenado alfabeticamente */
-function obtenerNombreUltimo(){
+function obtenerNombreUltimo(directorio_destino){
   return new Promise((resolve, reject) => {
     fsProm.readdir(directorio_destino, { withFileTypes: true })
     .then((backups) => {
@@ -58,7 +58,7 @@ function obtenerBackup (directorio_destino, nombre = null){
   return new Promise(async (resolve, reject) => {
     try {
       /* Comprueba que llegue un nombre, si no, lo establece buscando el ultimo elemento */
-      if (!nombre) nombre = await obtenerNombreUltimo();
+      if (!nombre) nombre = await obtenerNombreUltimo(directorio_destino);
     } catch (error) {
       reject(error)
     }

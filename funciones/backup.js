@@ -3,7 +3,7 @@ const fs = require("fs");
 const { execSync } = require('child_process');
 const { checkFile, getFechaHoy, obtenerComandoDump, obtenerDatosConf } = require('./funciones');
 const { comprimir, encriptar } = require('./encriptar');
-const { enviarMail } = require('../funciones/mail');
+const { enviarMail } = require('./mail');
 
 
 let backupJSON = obtenerDatosConf('backup.conf.json');

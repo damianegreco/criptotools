@@ -65,13 +65,8 @@ function obtenerBackup (directorio_destino, nombre = null){
     
     /* Establece la ruta absoluta al archivo buscado */
     const pathFile = path.join(directorio_destino, nombre)
-    fsProm.readFile(pathFile)
-    .then((backup) => resolve(backup))
-    .catch((error) => {
-      /* Si el error es el indicado, significa que ningun elemento coincide */
-      if (error.code === "ENOENT") return reject("Backup no existe");
-      reject(error)
-    });
+    if (fs.existsSync(pathFile)) return resolve(pathFile);
+    return reject("No existe el archivo");c
   })
 }
 

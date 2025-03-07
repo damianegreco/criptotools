@@ -22,7 +22,7 @@ router.get('/', function(req, res, next){
 /* Descarga el ultimo, ordenado alfabeticamente por el nombre, de la carpeta */
 router.get('/ultimo', function(req, res, next){
   obtenerBackup(directorio_destino)
-  .then((backup) => res.send(backup))
+  .then((backup) => res.sendFile(backup))
   .catch((error) => {
     console.error(error);
     res.status(500).send(error);
@@ -33,7 +33,7 @@ router.get('/ultimo', function(req, res, next){
 router.get('/:nombre', function(req, res, next){
   const {nombre} = req.params;
   obtenerBackup(directorio_destino, nombre)
-  .then((backup) => res.send(backup))
+  .then((backup) => res.sendFile(backup))
   .catch((error) => {
     console.error(error);
     res.status(500).send(error);

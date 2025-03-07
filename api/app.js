@@ -33,8 +33,9 @@ app.get('/', function(req, res, next){
 })
 
 /* API completa */
-app.use('/api', endpointsRouter);
+app.use('/api/descargar', descargasRouter);
 app.use('/descargar', descargasRouter);
+app.use('/api', endpointsRouter);
 
 /* Si no entro en api o descargas, 404 */
 app.use(function(req, res, next) {

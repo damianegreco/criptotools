@@ -1,10 +1,9 @@
-var path = require('path');
+const path = require('path');
 const { desencriptarArchivo } = require('../funciones/restore');
 const { obtenerDatosConf } = require('../funciones/funciones');
 
 const dumpDir = path.join(__dirname,"..","dumps");
 let backupJSON = obtenerDatosConf('backup.conf.json');
-
 
 /*
   comando:

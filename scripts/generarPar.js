@@ -1,4 +1,4 @@
-var path = require('path');
+const path = require('path');
 const { generarParClaves } = require('../funciones/generarPar');
 
 const dumpDir = path.join(__dirname, "..", "dumps");

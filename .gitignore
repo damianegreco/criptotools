@@ -2,6 +2,8 @@ node_modules
 
 .privateKey
 
+api/db/data/*
+
 dumps/*
 externos/*
 conf/*

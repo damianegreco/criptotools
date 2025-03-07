@@ -22,10 +22,12 @@ const abortar = function(rutas = []){
   }
 }
 
-const generarPar = function(dumpDir, ruta, nombre = ""){
+const generarPar = function(dumpDir, ruta, nombre, externo){
   return new Promise((resolve, reject) => {
-    generateKeyPair('ec', {
-      namedCurve: 'prime256v1',
+    generateKeyPair(externo ? 'ec' : 'rsa', {
+
+      namedCurve: externo ? 'prime256v1' : null,
+      modulusLength: !externo ? 2048 : null,
       publicKeyEncoding: { type: 'spki', format: 'pem' },
       privateKeyEncoding: { type: 'pkcs8', format: 'pem' }
     }, async (error, publicKey, privateKey) => {
@@ -55,11 +57,11 @@ const generarPar = function(dumpDir, ruta, nombre = ""){
   })
 }
 
-const generarParClaves = function(dumpDir, rutaClavePrivada, nombre = ""){
+const generarParClaves = function(dumpDir, rutaClavePrivada, nombre = "", externo = false){
   return new Promise((resolve, reject) => {
     //Debe haber ingresado si o si ruta para clave privada
     if (checkArgs([rutaClavePrivada])) {
-      generarPar(dumpDir, rutaClavePrivada, nombre)
+      generarPar(dumpDir, rutaClavePrivada, nombre, externo)
       .then(() => resolve())
       .catch((error) => reject(error))
     } else {

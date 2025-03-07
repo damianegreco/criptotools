@@ -1,5 +1,5 @@
-var path = require('path');
-var fs = require('fs');
+const path = require('path');
+const fs = require('fs');
 const { obtenerDatosConf } = require('../funciones/funciones');
 
 let backupJSON = obtenerDatosConf('backup.conf.json');
@@ -33,7 +33,7 @@ const consultaCifrar = async function(){
   try {
     const file = await input({ message: 'Ruta de archivo a encriptar: ' });
     
-    const dumpDir = path.join(__dirname, 'dumps','publicKey.pub')
+    const dumpDir = path.join(__dirname, '..', 'dumps','publicKey.pub')
     const publicKeyFile = await input({ message: 'Ruta de clave pública: ', default: dumpDir });
   
     let dump_dir = await input({ message: 'Destino de archivo cifrado: ', default: backupJSON.directorio_destino });

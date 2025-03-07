@@ -33,7 +33,7 @@ function getElementos(directorio_destino){
 }
 
 /* Obtiene el nombre del ultimo elemento ordenado alfabeticamente */
-function obtenerNombreUltimo(){
+function obtenerNombreUltimo(directorio_destino){
   return new Promise((resolve, reject) => {
     fsProm.readdir(directorio_destino, { withFileTypes: true })
     .then((backups) => {
@@ -58,20 +58,15 @@ function obtenerBackup (directorio_destino, nombre = null){
   return new Promise(async (resolve, reject) => {
     try {
       /* Comprueba que llegue un nombre, si no, lo establece buscando el ultimo elemento */
-      if (!nombre) nombre = await obtenerNombreUltimo();
+      if (!nombre) nombre = await obtenerNombreUltimo(directorio_destino);
     } catch (error) {
       reject(error)
     }
     
     /* Establece la ruta absoluta al archivo buscado */
     const pathFile = path.join(directorio_destino, nombre)
-    fsProm.readFile(pathFile)
-    .then((backup) => resolve(backup))
-    .catch((error) => {
-      /* Si el error es el indicado, significa que ningun elemento coincide */
-      if (error.code === "ENOENT") return reject("Backup no existe");
-      reject(error)
-    });
+    if (fs.existsSync(pathFile)) return resolve(pathFile);
+    return reject("No existe el archivo");c
   })
 }
 

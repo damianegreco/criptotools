@@ -23,9 +23,9 @@ const limiter = rateLimit({
 const corsConfig = {origin: '*'}
 
 app.use(myLogger);
-app.use(limiter);
-app.use(cors(corsConfig));
-app.use(helmet());
+// app.use(limiter);
+// app.use(cors(corsConfig));
+// app.use(helmet());
 
 /* Ruta de inicio para control */
 app.get('/', function(req, res, next){

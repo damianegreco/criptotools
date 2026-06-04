@@ -22,18 +22,18 @@
   "license": "ISC",
   "dependencies": {
     "@seald-io/nedb": "^4.1.2",
-    "archiver": "^7.0.1",
-    "cors": "^2.8.5",
+    "archiver": "^8.0.0",
+    "cors": "^2.8.6",
     "express": "^5.2.1",
-    "express-rate-limit": "^8.2.1",
-    "helmet": "^8.1.0",
-    "inquirer": "^13.0.1",
-    "jsonwebtoken": "^9.0.2",
-    "morgan": "^1.10.1",
-    "nodemailer": "^7.0.11",
-    "rotating-file-stream": "^3.2.7"
+    "express-rate-limit": "^8.5.2",
+    "helmet": "^8.2.0",
+    "inquirer": "^14.0.2",
+    "jsonwebtoken": "^9.0.3",
+    "morgan": "^1.11.0",
+    "nodemailer": "^8.0.10",
+    "rotating-file-stream": "^3.2.9"
   },
   "devDependencies": {
-    "nodemon": "^3.1.11"
+    "nodemon": "^3.1.14"
   }
 }

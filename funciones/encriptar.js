@@ -1,7 +1,7 @@
 var crypto = require('crypto');
 var path = require('path');
 var fs = require("fs");
-const archiver = require('archiver');
+const { ZipArchive } = require('archiver');
 const { pipeline, Transform } = require('stream');
 const { promisify } = require('util');
 
@@ -14,7 +14,7 @@ const comprimir = function(dumpDir, carpeta, nombre, progress = null){
 
       if (!fs.existsSync(dumpDir)) fs.mkdirSync(dumpDir, {recursive:true});
       const output = fs.createWriteStream(path.join(dumpDir, nombreComprimido));
-      const archive = archiver('zip', { zlib: { level: 9 } });
+      const archive = new ZipArchive({ zlib: { level: 9 } });
       archive.pipe(output)
 
       if (progress !== null){

@@ -20,6 +20,9 @@ const desencriptar = function(privateKeyDir, dumpDir, encriptadoDir, encriptadoF
       const archivoEncriptadoRuta = path.join(encriptadoDir, encriptadoFilename);
       if (!checkFile(archivoEncriptadoRuta)) return reject("No existe archivo encriptado");
 
+      const stat = fs.statSync(archivoEncriptadoRuta);
+      if (stat.size <= 512) return reject("Archivo encriptado corrupto o inválido (tamaño insuficiente)");
+
       // Abrimos el archivo solo para leer los primeros 512 bytes
       const fd = fs.openSync(archivoEncriptadoRuta, 'r');
       const buffer = Buffer.alloc(512);

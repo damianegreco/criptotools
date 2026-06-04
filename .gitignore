@@ -10,3 +10,7 @@ conf/*
 logs/*
 
 !*/README.md
+
+graphify-out
+CLAUDE.md
+.claude

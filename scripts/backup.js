@@ -1,21 +1,25 @@
 const path = require('path');
-const { obtenerDatosConf } = require('../funciones/funciones');
+const { obtenerDatosConf, getFechaHoy } = require('../funciones/funciones');
 const { realizarDump } = require('../funciones/backup');
+const { ProgresoBackup } = require('../funciones/progreso');
 
-const dumpDir = path.join(__dirname, "..","dumps");
-
+const dumpDir = path.join(__dirname, "..", "dumps");
 const publicKeyFile = path.join(dumpDir, 'publicKey.pub');
-let datosJSON = obtenerDatosConf('conexion_db.conf.json');
-let backupJSON = obtenerDatosConf('backup.conf.json');
+const datosJSON = obtenerDatosConf('conexion_db.conf.json');
+const backupJSON = obtenerDatosConf('backup.conf.json');
+
+const progreso = new ProgresoBackup();
+progreso.encabezado(getFechaHoy().toString());
 
 realizarDump(dumpDir, publicKeyFile, {
   ...datosJSON,
   DUMP_DIR: backupJSON.directorio_destino
-})
-.then(({nombreArchivoEnc, cronometro}) => {
-  console.log(`Se finalizó archivo: ${nombreArchivoEnc} en ${cronometro} ms`);
+}, progreso)
+.then(({ nombreArchivoEnc, cronometro }) => {
+  // resumen ya impreso por progreso.resumen()
 })
 .catch((error) => {
-  if (error === 'RUTA_CLAVE_PRIVADA') return console.error("No existe clave publica \nnpm run generarpar [RUTA_CLAVE_PRIVADA]");
-  console.error(error);
-})
+  if (error === 'RUTA_CLAVE_PRIVADA') return console.error("\n✗ No existe clave pública en dumps/publicKey.pub\n  Ejecutá: npm run generar-par");
+  console.error('\n✗ Error en backup:', error);
+  process.exit(1);
+});

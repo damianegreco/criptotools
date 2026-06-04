@@ -60,13 +60,13 @@ function obtenerBackup (directorio_destino, nombre = null){
       /* Comprueba que llegue un nombre, si no, lo establece buscando el ultimo elemento */
       if (!nombre) nombre = await obtenerNombreUltimo(directorio_destino);
     } catch (error) {
-      reject(error)
+      return reject(error);
     }
     
     /* Establece la ruta absoluta al archivo buscado */
     const pathFile = path.join(directorio_destino, nombre)
     if (fs.existsSync(pathFile)) return resolve(pathFile);
-    return reject("No existe el archivo");c
+    return reject("No existe el archivo");
   })
 }
 

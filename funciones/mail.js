@@ -41,24 +41,15 @@ const generarHTML = function(dbs = [], archivos = [], nombre = ""){
   return html;
 }
 
-function enviarMail(dbs, archivos, nombre) {
-  // send mail with defined transport object
-  transporter.sendMail({
-    from: `"${mailJSON.enviaNombre}" <${mailJSON.user}>`, 
-    to: mailJSON.destMail, 
-    subject: "Backup realizado", 
-    text: "Se realizó el backup de las bases de datos y/o archivos", 
-    html: generarHTML(dbs, archivos, nombre), 
-  }, function(error, info) {
-    if (error) { 
-      console.error(error);
-      return;
-    }
-    console.log(`Mail enviado: ${info.messageId}`);
-    
+async function enviarMail(dbs, archivos, nombre) {
+  const info = await transporter.sendMail({
+    from: `"${mailJSON.enviaNombre}" <${mailJSON.user}>`,
+    to: mailJSON.destMail,
+    subject: "Backup realizado",
+    text: "Se realizó el backup de las bases de datos y/o archivos",
+    html: generarHTML(dbs, archivos, nombre),
   });
-
-  //console.log("Message sent: %s", info.messageId);
+  console.log(`Mail enviado: ${info.messageId}`);
 }
 
 module.exports = { enviarMail }

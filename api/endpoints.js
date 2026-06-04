@@ -1,51 +1,49 @@
 const router = require('express').Router();
 const { middleware } = require('./middleware');
-
-const { directorio_destino } = require('../conf/backup.conf.json');
-const {getElementos, obtenerBackup} = require('./funciones');
-
+const { obtenerDatosConf } = require('../funciones/funciones');
+const { getElementos, obtenerBackup } = require('./funciones');
 const fs = require('fs');
 
-/* Controla que todos los recursos deben benir con JWT firmado por una clave reconocida */
+const { directorio_destino } = obtenerDatosConf('backup.conf.json');
+
 router.use(middleware());
 
-/* Lista los elementos de la carpeta definida para los backups, que coincidan con la extension buscada */
 router.get('/', function(req, res, next){
   getElementos(directorio_destino)
   .then((backups) => {
-    res.json({backups})
+    res.json({ backups });
   })
   .catch((error) => {
     console.error(error);
-    res.status(500).send(error);
-  })
-})
+    res.status(500).send("Error interno");
+  });
+});
 
-/* Descarga el ultimo, ordenado alfabeticamente por el nombre, de la carpeta */
 router.get('/ultimo', function(req, res, next){
   obtenerBackup(directorio_destino)
   .then((backup) => {
-    // res.setHeader("content-type", "some/type");
     fs.createReadStream(backup).pipe(res);
   })
   .catch((error) => {
     console.error(error);
-    res.status(500).send(error);
-  })
-})
+    res.status(500).send("Error interno");
+  });
+});
 
-/* Descarga el elemento por el nombre solicitado */
 router.get('/:nombre', function(req, res, next){
-  const {nombre} = req.params;
+  const { nombre } = req.params;
+  // Prevenir path traversal
+  if (nombre.includes('..') || nombre.includes('/')) {
+    return res.status(400).send("Nombre inválido");
+  }
   obtenerBackup(directorio_destino, nombre)
   .then((backup) => {
-    // res.setHeader("content-type", "some/type");
     fs.createReadStream(backup).pipe(res);
   })
   .catch((error) => {
     console.error(error);
-    res.status(500).send(error);
-  })
-})
+    res.status(500).send("Error interno");
+  });
+});
 
 module.exports = router;

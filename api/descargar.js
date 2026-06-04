@@ -5,46 +5,46 @@ const { middleware } = require('./middleware');
 
 function obtenerFilePath(hash) {
   return new Promise((resolve, reject) => {
-    db.links.findAsync({hash, used:false})
+    db.links.findAsync({ hash, used: false })
     .then((rutas) => {
       if (!rutas || rutas.length === 0) return reject("No encontrado");
-      return resolve(rutas[0])
+      return resolve(rutas[0]);
     })
-    .catch((error) => console.error(error))
-  })
+    .catch((error) => reject(error));
+  });
 }
 
-router.get("/listar", middleware(),function(req, res, next){
+router.get("/listar", middleware(), function(req, res, next){
   db.links.findAsync({})
   .then((rutas) => {
-    res.json({rutas})
+    res.json({ rutas });
   })
   .catch((error) => {
     console.error(error);
-    res.status(500).send(error)
-  })
-})
+    res.status(500).send("Error interno");
+  });
+});
 
 router.get('/:hash', function(req, res, next){
-  const {hash} = req.params;
+  const { hash } = req.params;
 
   obtenerFilePath(hash)
-  .then(async(ruta) => {
-    await db.links.updateAsync(
-      { _id: ruta._id }, 
-      { $set: {  used:true, usedAt: new Date() } },
-      { multi:false }
-    );
+  .then(async (ruta) => {
     if (!fs.existsSync(ruta.pathFile)) {
-      console.error("Archivo no existe");
-      return res.status(500).send("No existe el archivo");
+      console.error("Archivo no existe en disco:", ruta.pathFile);
+      return res.status(404).send("Archivo no disponible");
     }
-    res.download(ruta.pathFile, ruta.fileName)
+    await db.links.updateAsync(
+      { _id: ruta._id },
+      { $set: { used: true, usedAt: new Date() } },
+      { multi: false }
+    );
+    res.download(ruta.pathFile, ruta.fileName);
   })
   .catch((error) => {
     console.error(error);
-    res.status(500).send(error)
-  })
-})
+    res.status(404).send("No encontrado");
+  });
+});
 
 module.exports = router;

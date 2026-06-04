@@ -2,7 +2,7 @@
   "name": "@damianegreco/criptotools",
   "version": "1.1.0",
   "description": "Herramientas CLI para el cifrado y backup",
-  "main": "main.js",
+  "main": "funciones/main.js",
   "api_port": 5016,
   "scripts": {
     "inicializar": "node ./scripts/inicializar.js",
@@ -15,7 +15,8 @@
     "test-mail": "node ./scripts/test-mail.js",
     "servidor-api": "node ./api/app.js",
     "servidor-api-dev": "nodemon ./api/app.js",
-    "generar-link": "node ./scripts/generar-link.js"
+    "generar-link": "node ./scripts/generar-link.js",
+    "dar-permisos": "node ./scripts/dar-permisos.js"
   },
   "author": "Damian Greco",
   "license": "ISC",
